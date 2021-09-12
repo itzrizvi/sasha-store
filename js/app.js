@@ -12,16 +12,18 @@ const showProducts = (products) => {
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
-      <div>
-    <img class="product-image" src=${image}></img>
+      <div class="showimg">
+        <img class="product-image" src=${image}></img>
       </div>
       <h3>${product.title}</h3>
-      <p id="ratings">Average Rating: ${product.rating.rate} <i class="fas fa-star"></i></p>
-      <p id="ratings">Reviewed By: ${product.rating.count}</p>
-      <p>Category: ${product.category}</p>
-      <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <p id="ratings">Average Rating: <span>${product.rating.rate}</span> <i class="fas fa-star-half-alt"></i></p>
+      <p id="ratings">Reviewed By: <span>${product.rating.count}</span></p>
+      <p>Category: <span>${product.category}</span></p>
+      <h2>Price: <span>$ ${product.price}</span></h2>
+      <div class="buttons">
+        <button onclick="addToCart(${product.price})" id="addToCart-btn" class="buy-now"><i class="fas fa-shopping-cart"></i> Add to cart</button>
+        <button id="details-btn" class="detail-btn">Details</button></div>
+      </div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
