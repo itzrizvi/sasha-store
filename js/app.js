@@ -4,6 +4,46 @@ const loadProducts = () => {
   showProducts(data);
 };
 
+// Fetch Data for Product Details
+const loadDetails = (id) => {
+  const url = `https://fakestoreapi.com/products/${id}`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => productDetails(data));
+
+}
+
+// Show Product Details In UI
+const productDetails = (data) => {
+  const detailsContainer = document.getElementById('full-details');
+  // Creating New Element
+  const newArea = document.createElement('div');
+  detailsContainer.textContent = '';
+  newArea.innerHTML = `
+              <div class="col-md-9 detail-box-1">
+                <h3 class="text-center product-heading">Product Details</h3>
+              </div>
+              <div class="col-md-4">
+                <div class="product-img">
+                  <img src="${data.image}" alt="Product Image">
+                </div>
+              </div>
+              <div class="col-md-5 detail-box-2">
+                <div class="product-details">
+                  <h3 class="product-title">${data.title}</h3>
+                  <p class="ratings">Average Review: <span>${data.rating.rate} <i class="fas fa-star-half-alt"></i></span></p>
+                  <p class="reviwed-by">Reviewed By: <span>${data.rating.count}</span></p>
+                  <p class="sku-number">SKU: <span>00${data.id}</span></p>
+                  <p class="category">Category: <span>${data.category}</span></p>
+                  <p class="category">Price: <span>$${data.price}</span></p>
+                  <p class="details">Description: <br>${data.description}</p>
+                </div>
+              </div>
+  `;
+  // Appending the New Element to Parent
+  detailsContainer.appendChild(newArea);
+}
 
 // Show all product in UI 
 const showProducts = (products) => {
@@ -24,7 +64,7 @@ const showProducts = (products) => {
       <h2>Price: <span>$ ${product.price}</span></h2>
       <div class="buttons">
         <button onclick="addToCart(${product.price})" id="addToCart-btn" class="buy-now"><i class="fas fa-shopping-cart"></i> Add to cart</button>
-        <button id="details-btn" class="detail-btn">Details</button></div>
+        <button id="details-btn" onclick="loadDetails(${product.id})" class="detail-btn">Details</button></div>
       </div>
       `;
     // Appending New Created Child Div
